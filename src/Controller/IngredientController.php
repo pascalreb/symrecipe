@@ -93,7 +93,7 @@ class IngredientController extends AbstractController
      * This controller allows to delete an ingredient
      */
     #[Route('/ingredient/delete/{id}', name: 'app_deleteIngredient', methods: ['GET'])]
-    public function delete(int $id, EntityManagerInterface $manager, Ingredient $ingredient): Response
+    public function delete(EntityManagerInterface $manager, Ingredient $ingredient): Response
     {
         $manager->remove($ingredient);
         $manager->flush();
