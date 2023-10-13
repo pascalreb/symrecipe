@@ -64,6 +64,9 @@ class Recipe
     #[ORM\ManyToMany(targetEntity: Ingredient::class)]
     private Collection $ingredients;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
