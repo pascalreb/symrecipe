@@ -36,7 +36,7 @@ class RecipeType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\Length(['min' => 2, 'max' => 50]),
-                    new Assert\NotBlank()
+                    new Assert\NotBlank(),
                 ]
             ])
             ->add('time', IntegerType::class, [
@@ -50,7 +50,7 @@ class RecipeType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\Positive(),
-                    new Assert\LessThan(1441)
+                    new Assert\LessThan(1441),
                 ]
             ])
             ->add('nbPeople', IntegerType::class, [
@@ -64,7 +64,7 @@ class RecipeType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\Positive(),
-                    new Assert\LessThan(51)
+                    new Assert\LessThan(51),
                 ]
             ])
             ->add('difficulty', RangeType::class, [
@@ -80,7 +80,7 @@ class RecipeType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\Positive(),
-                    new Assert\LessThan(6)
+                    new Assert\LessThan(6),
                 ]
             ])
             ->add('description', TextareaType::class, [
