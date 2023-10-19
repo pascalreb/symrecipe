@@ -26,7 +26,7 @@ class IngredientController extends AbstractController
             10 /*limit per page*/
         );
 
-        return $this->render('pages/ingredient/index.html.twig', [
+        return $this->render('pages/ingredient/edit.html.twig', [
             'ingredients' => $ingredients
         ]);
     }
