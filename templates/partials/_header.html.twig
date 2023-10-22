@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ path('app_home') }}">SYMRECIPE</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" 
+        aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarColor02">
@@ -9,16 +10,41 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_home') }}">Accueil</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_recipe') }}">Mes recettes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_ingredient') }}">Mes ingrédients</a>
-                </li><li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_loginSecurity') }}">Connexion</a>
-                </li>
-            </ul>
 
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_recipe') }}">Mes recettes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_ingredient') }}">Mes ingrédients</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+            <ul class="navbar-nav">
+
+                {% if app.user %}
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" 
+                        aria-expanded="false">{{ app.user.fullName }}</a>
+                        <div class="dropdown-menu" style="width: 15rem;">
+                            <a class="dropdown-item" href="{{ path('app_editUser', {id : app.user.id}) }}">Modifier mes informations</a>
+                            <a class="dropdown-item" href="{{ path('app_editPasswordUser', {id : app.user.id}) }}">Modifier mon mot de passe</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('app_logoutSecurity') }}">Déconnexion</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_loginSecurity') }}">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_registrationSecurity') }}">Inscription</a>
+                    </li>
+                {% endif %}
+
+            </ul>
         </div>
     </div>
 </nav>
