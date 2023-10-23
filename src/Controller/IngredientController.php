@@ -7,16 +7,19 @@ use App\Form\IngredientType;
 use App\Repository\IngredientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IngredientController extends AbstractController
 {
     /*
      * This controller displays all ingredients with a pagination
      */
+    #[IsGranted('ROLE_USER')]
     #[Route('/ingredient', name: 'app_ingredient', methods: ['GET'])]
     public function index(IngredientRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -34,6 +37,7 @@ class IngredientController extends AbstractController
     /*
      * This controller allows to create an ingredient
      */
+    #[IsGranted('ROLE_USER')]
     #[Route('/ingredient/new', name: 'app_newIngredient', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
@@ -64,8 +68,9 @@ class IngredientController extends AbstractController
     /*
      * This controller allows to modify an ingredient
      */
+    #[Security("is_granted('ROLE_USER') and user === ingredient.getUser()")]
     #[Route('/ingredient/edition/{id}', name: 'app_editIngredient', methods: ['GET', 'POST'])]
-    public function edit(IngredientRepository $repository, int $id, Request $request, EntityManagerInterface $manager): Response
+    public function edit(IngredientRepository $repository, Ingredient $ingredient, int $id, Request $request, EntityManagerInterface $manager): Response
     {
         $ingredient = $repository->findOneBy(["id" => $id]);
         $form = $this->createForm(IngredientType::class, $ingredient);
