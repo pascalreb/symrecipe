@@ -4,6 +4,7 @@
 
 {% block body %}
     <div class="container mt-4">
+
         <div class="jumbotron">
             <h1 class="display-4">Bienvenue sur Symrecipe</h1>
             <p class="lead text-justify" >Symrecipe est une application qui va te permettre de créer des recettes à base d'ingrédients
@@ -14,5 +15,21 @@
                 <a class="btn btn-primary btn-lg" href="#" role="button">Inscription</a>
             </p>
         </div>
+
+        <div class="recipes">
+            <h1>Dernières recettes partagées</h1>
+            <div class="d-flex justify-content-between flex-wrap">
+                {% for recipe in recipes %}
+                <div class="card border-primary m-3" style="max-width: 20rem;">
+                    <div class="card-header">Recette n° {{ recipe.id }}</div>
+                    <div class="card-body">
+                    <h4 class="card-title">{{ recipe.name }}</h4>
+                    <p class="card-text">{{ recipe.description|slice(0, 100) ~ " ..." }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
     </div>
 {% endblock %}
