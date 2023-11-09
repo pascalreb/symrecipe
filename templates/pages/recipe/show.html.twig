@@ -13,20 +13,25 @@
 
         <h1 class="mt-4">{{ recipe.name }}</h1>
 
+
+        <div>
+          <img src="{{ vich_uploader_asset(recipe, 'imageFile') }}" style="width:100%; height:auto;">
+        </div>
+
         <div>
           <span class="badge bg-info mt-2 mb-2">Créée le {{ recipe.createdAt|date("m/d/Y") }}</span>
         </div>
 
-        <p class="mt-4 fw-bold">Moyenne : {{ recipe.average|number_format(1, '.', ',') }}/5</p>
+        <p class="mt-4 fw-bold">Note moyenne : {{ recipe.average|number_format(1, '.', ',') }}/5</p>
 
         {% if recipe.time %}
-          <p class="mt-4">Temps : {{ recipe.time }} minutes</p>
+          <p class="mt-4">Temps : {{ recipe.time|min_to_hour }}</p>
         {% else %}
           <p class="mt-4">Temps non renseigné</p>
         {% endif %}
 
         {% if recipe.nbPeople %}
-          <p class="mt-4">Nombre de personnes : {{ recipe.nbPeople }}</p>
+          <p class="mt-4">Pour combien de personnes : {{ recipe.nbPeople }}</p>
         {% else %}
           <p class="mt-4">Nombre de personnes non renseigné</p>
         {% endif %}

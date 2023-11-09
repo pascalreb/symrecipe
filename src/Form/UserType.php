@@ -61,9 +61,7 @@ class UserType extends AbstractType
                     'class' => 'btn btn-primary mt-4',
                 ],
                 'label' => 'Modifier mon profil',
-            ])
-
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -12,7 +12,7 @@
             <hr class="my-4">
             <p>Pour commencer, rendez-vous sur la page d'inscription pour utiliser l'application.</p>
             <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Inscription</a>
+                <a class="btn btn-primary btn-lg" href="{{ path('app_registrationSecurity') }}" role="button">Inscription</a>
             </p>
         </div>
 
@@ -23,7 +23,9 @@
                 <div class="card border-primary m-3" style="max-width: 20rem;">
                     <div class="card-header">Recette n° {{ recipe.id }}</div>
                     <div class="card-body">
-                    <h4 class="card-title">{{ recipe.name }}</h4>
+                    <h4 class="card-title">
+                        <a href="{{ path('app_showRecipe', {id: recipe.id}) }}">{{ recipe.name }}</a>
+                    </h4>
                     <p class="card-text">{{ recipe.description|slice(0, 100) ~ " ..." }}</p>
                     </div>
                 </div>

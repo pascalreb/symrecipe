@@ -7,6 +7,7 @@ use App\Entity\Mark;
 use App\Entity\User;
 use Faker\Generator;
 use App\Entity\Recipe;
+use App\Entity\Contact;
 use App\Entity\Ingredient;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -28,6 +29,17 @@ class AppFixtures extends Fixture
 
         // Users
         $users = [];
+
+        $admin = new User();
+        $admin->setFullName('Administrateur de Symrecipe')
+            ->setPseudo(null)
+            ->setEmail('admin@symrecipe.fr')
+            ->setRoles(['ROLE_USER', 'ROLE_ADMIN'])
+            ->setPlainPassword('admin');
+
+        $users[] = $admin;
+        $manager->persist($admin);
+
         for ($i = 1; $i <= 10; $i++) {
             $user = new User();
             $user->setFullName($this->faker->name())
@@ -85,6 +97,17 @@ class AppFixtures extends Fixture
 
                 $manager->persist($mark);
             }
+        }
+
+        // Contact
+        for ($i = 0; $i < 5; $i++) {
+            $contact = new Contact();
+            $contact->setFullName($this->faker->name())
+                ->setEmail($this->faker->email())
+                ->setSubject('Demande n°' . ($i + 1))
+                ->setMessage($this->faker->text());
+
+            $manager->persist($contact);
         }
 
         $manager->flush();
